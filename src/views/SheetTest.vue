@@ -28,7 +28,7 @@
  
 <script>
 import Row from '@/components/Row.vue';
-import { GSheetID } from '../components/GsheetID.js'
+import { GSheetID } from '../components/global-vars.js'
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const creds = require('@/client_secret.json');
 	export default {
