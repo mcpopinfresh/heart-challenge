@@ -4,13 +4,6 @@
 			<main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 ">
 					<h2>VueSheet List</h2>
-					<div class="btn-toolbar mb-2 mb-md-0">
-						<a 	href="https://docs.google.com/spreadsheets/d/1Dv6ezkTo6wO4pB_-NxcscUdmc-RPWAREtZQYNK0GZNg/edit?usp=sharing" 
-							class="btn btn-sm btn-outline-secondary"
-							target="_blank">
-						View Google Sheet
-						</a>
-					</div>
 				</div>
 				<div class="table-responsive">
 				<table class="table table-striped ">
@@ -38,7 +31,7 @@ import Row from '@/components/Row.vue';
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const creds = require('@/client_secret.json');
 	export default {
-		name: "Sheet",
+		name: "SheetTest",
 		components: {
 			Row
 		},
@@ -68,5 +61,3 @@ const creds = require('@/client_secret.json');
 	}
 </script>
 
-<style scoped>
-</style>
