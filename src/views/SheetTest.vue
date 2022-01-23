@@ -28,6 +28,7 @@
  
 <script>
 import Row from '@/components/Row.vue';
+import { GSheetID } from '../components/GsheetID.js'
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const creds = require('@/client_secret.json');
 	export default {
@@ -44,7 +45,7 @@ const creds = require('@/client_secret.json');
 		},
 		methods:{
 			async accessSpreadSheet() {
-				const doc = new GoogleSpreadsheet('1hFVSy7FTLIbweePF_yKqB1YbfvxtfNxl8_YW957dFrU');
+				const doc = new GoogleSpreadsheet(GSheetID);
 				await doc.useServiceAccountAuth(creds);
 				await doc.loadInfo(); 
 				const sheet = doc.sheetsByIndex[0];

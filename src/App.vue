@@ -1,6 +1,7 @@
 <template>
   <v-app 
     dark
+    style="background: teal-lighten-4"
   >
     
     <v-app-bar
@@ -9,24 +10,21 @@
       dark
       dense
     >
-     <v-icon 
-        large
-        color="accent"
-        @click="drawer = true"
-      >
-        mdi-heart-settings
-      </v-icon>
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+      
+      <v-spacer></v-spacer>
+      <span><h2>Heart Challange</h2></span>
+      <v-spacer></v-spacer>
 
-      <v-spacer></v-spacer>
-      <span class="mr-2">Heart Chalange</span>
-      <v-spacer></v-spacer>
+      <v-icon large color="accent">
+        mdi-heart
+      </v-icon>
 
     </v-app-bar>
 
       <v-navigation-drawer
         app
         v-model="drawer"
-        absolute
         temporary
       >
         <side-nav-list/>

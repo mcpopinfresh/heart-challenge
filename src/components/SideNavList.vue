@@ -5,7 +5,8 @@
     >
         <v-list-item-group
         v-model="group"
-        active-class="teal--text text--darken4"
+        active-class="accent--text text--darken4"
+        
         >
         <v-list-item v-for="item in items" 
             :key="item.name"

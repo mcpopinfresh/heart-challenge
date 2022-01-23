@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SheetTest from '../views/SheetTest.vue'
 import HeartCart from '../views/HeartCart.vue'
+import AddChallenge from '../views/AddChallenge.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,12 @@ const routes = [
     name: 'Heart Cart',
     component: HeartCart,
     icon: 'mdi-cart-heart'
+  },
+  {
+    path: '/addChallenge',
+    name: 'Add Challenge',
+    component: AddChallenge,
+    icon: 'mdi-hand-heart'
   }
 ]
 
