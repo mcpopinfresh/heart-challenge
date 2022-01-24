@@ -4,7 +4,8 @@
             v-for="row in rows"
             :key="row.id" 
             :color="row.typeColor"
-            max-width="500"
+            shaped
+
             class="my-4"
             dark
         >
@@ -15,13 +16,16 @@
                     
                     <v-divider class="mx-4"></v-divider>
                     
-                    <v-card-title v-if="row.status==='Complete'" style="font-size:24px">{{row.status}}d!!</v-card-title>
+                    <v-card-title v-if="row.status==='Complete'" style="font-size:24px">
+                        <span> {{row.status}}</span>
+                        <v-icon color="yellow darken-2" x-large>mdi-star</v-icon>
+                    </v-card-title>
                     <v-card-title v-else style="color:lightgray">{{row.status}}</v-card-title>
 
                     <v-card-actions>
                         <v-btn v-if="row.status==='Incomplete'">
                             <v-icon>mdi-heart-half-full</v-icon>
-                            <span>Mark Completed</span>
+                            <span>Mark Complete</span>
                         </v-btn>
                     </v-card-actions>
                 </div>
