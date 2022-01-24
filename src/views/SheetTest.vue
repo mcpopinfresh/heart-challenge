@@ -32,11 +32,11 @@ import { GSheetID } from '../components/global-vars.js'
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const creds = require('@/client_secret.json');
 	export default {
-		name: "SheetTest",
+		name: 'SheetTest',
 		components: {
 			Row
 		},
-		props: ["sheet"],
+		props: ['sheet'],
 		data() {
 			return {
 				rows: [],

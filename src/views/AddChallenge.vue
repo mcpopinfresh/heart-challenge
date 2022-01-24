@@ -15,19 +15,31 @@
                     clearable
                     prepend-icon="mdi-mother-heart"
                 />
+                <v-select
+                    :items="types"
+                    v-model="type"
+                    return-object
+                    item-text="name"
+                    label="Challenge Type"
+                    outlined
+                    prepend-icon="mdi-heart-flash"
+                ></v-select>
                 <v-textarea
-                    label="Challenge" 
+                    label="Challenge Details" 
                     v-model="activity"
                     outlined
                     clearable
-                    prepend-icon="mdi-heart-flash"
-                    height="300"
+                    prepend-icon="mdi-folder-heart"
+                    height="200"
                 />
             </v-form>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-            <v-btn @click="addRow()" color="accent">Add Challenge</v-btn>
+            <v-btn :disabled="disableBtn" @click="addRow()" color="accent">
+                <v-icon>mdi-heart-plus</v-icon>
+                <span>Add Challenge</span>
+            </v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -41,31 +53,38 @@
 		data() {
 			return {
 				name: '',
-				city: '',
 				activity: '',
-				showMsg : false,
-				message: '',
+                type:{name:'',color:''},
+                types: [
+                    {name:'Helping Heart', color:'primary'}, 
+                    {name:'Health Heart', color:'accent'},
+                    {name:'Holy Heart', color:'secondary'}
+                ],
+                disableBtn: false
 			}
 		},
 		methods: {
 			async addRow() {
+                this.disableBtn = true;
 				const newRow = {
 					name: this.name,
-					city: this.city,
 					activity: this.activity,
+                    typeName: this.type.name,
+                    typeColor: this.type.color,
+                    status:'Incomplete',
+                    addTime: Date.now(),
+                    id: this.name + Date.now().toString()
 				}
 				const doc = new GoogleSpreadsheet(GSheetID);
 				await doc.useServiceAccountAuth(creds);
 				await doc.loadInfo(); 
 				const sheet = doc.sheetsByIndex[0];
-				await sheet.addRow(newRow);
+                await sheet.addRow(newRow);
 				
 				this.name = '';
-				this.city = '';
 				this.activity = '';
-				this.message = "New row added !";
-				this.showMsg = true;
-				
+                this.type = {name:'',color:''};
+                this.disableBtn = false;
 			}
 		}
 	}

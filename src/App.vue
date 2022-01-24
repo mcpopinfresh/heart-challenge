@@ -6,19 +6,22 @@
     
     <v-app-bar
       app
-      color="primary"
+      src="./assets/headerImage.jpg"
       dark
-      dense
+      shrink-on-scroll
+      prominent
+      fade-img-on-scroll
+      scroll-threshold="100"
+      color="black"
     >
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      
-      <v-spacer></v-spacer>
-      <span><h2>Heart Challange</h2></span>
-      <v-spacer></v-spacer>
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          contain
+        ></v-img>
+      </template>
 
-      <v-icon large color="accent">
-        mdi-heart
-      </v-icon>
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
     </v-app-bar>
 
@@ -29,6 +32,7 @@
       >
         <side-nav-list/>
       </v-navigation-drawer>
+
     <v-main>
       <router-view/>
     </v-main>
@@ -47,7 +51,6 @@ export default {
 
   data: () => ({
     drawer: false,
-    group: null,
   }),
 };
 </script>
