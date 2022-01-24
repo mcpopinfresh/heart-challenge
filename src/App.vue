@@ -6,19 +6,22 @@
     
     <v-app-bar
       app
-      src="./assets/headerImage.jpg"
+      src="./assets/headerImage-med.jpg"
       dark
       prominent
+
       color="black"
     >
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
+          class="mx-2"
           contain
         ></v-img>
       </template>
 
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+      <!--<v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>-->
+      <v-btn @click="drawer = true" icon><v-icon x-large>$menu</v-icon></v-btn>
 
     </v-app-bar>
 

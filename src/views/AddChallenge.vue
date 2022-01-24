@@ -39,6 +39,7 @@
             <v-btn :disabled="disableBtn" @click="addRow()" color="accent">
                 <v-icon>mdi-heart-plus</v-icon>
                 <span>Add Challenge</span>
+                
             </v-btn>
         </v-card-actions>
     </v-card>

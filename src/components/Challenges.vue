@@ -1,8 +1,5 @@
 <template>
-
-        <v-row >
-        <v-col cols="12">
-            <v-spacer></v-spacer>
+    <v-container>
         <v-card 
             v-for="row in rows"
             :key="row.id" 
@@ -11,28 +8,27 @@
             class="my-4"
             dark
         >
-            <div class="d-flex flex-no-wrap justify-space-between"
-                border="10px solid black"
-            >
+            <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
                     <v-card-title> {{row.name}} </v-card-title>
                     <v-card-subtitle>{{row.activity}}</v-card-subtitle>
                     
                     <v-divider class="mx-4"></v-divider>
                     
-                    <v-card-title v-if="row.status==='Complete'" style="font-size:30px">{{row.status}}!!</v-card-title>
-                    <v-card-title v-else>{{row.status}}</v-card-title>
+                    <v-card-title v-if="row.status==='Complete'" style="font-size:24px">{{row.status}}d!!</v-card-title>
+                    <v-card-title v-else style="color:lightgray">{{row.status}}</v-card-title>
 
                     <v-card-actions>
                         <v-btn v-if="row.status==='Incomplete'">
                             <v-icon>mdi-heart-half-full</v-icon>
-                            <span>Click to Complete</span>
+                            <span>Mark Completed</span>
                         </v-btn>
                     </v-card-actions>
                 </div>
                 <v-avatar
                     class="ma-3"
                     size="125"
+                    width="100"
                     tile
                 >
                     <!--
@@ -42,14 +38,14 @@
                     <v-icon v-else size="125"> mdi-heart-cog </v-icon>
                     -->
 
-                    <v-img v-if="row.typeName=='Helping Heart'" src="../assets/helping heart.png" :height="getBadgeHeight(row.status)" contain
+                    <v-img v-if="row.typeName=='Helping Heart'" src="../assets/helping-heart-small.png" :height="getBadgeHeight(row.status)" contain
                         :gradient="getGradient(row.status,row.typeColor)"
                     ></v-img>
-                    <v-img v-else-if="row.typeName=='Holy Heart'" src="../assets/holy heart.png" :height="getBadgeHeight(row.status)" contain
+                    <v-img v-else-if="row.typeName=='Holy Heart'" src="../assets/holy-heart-small.png" :height="getBadgeHeight(row.status)" contain
                         :gradient="getGradient(row.status,row.typeColor)"
                     >
                     </v-img>
-                    <v-img v-else-if="row.typeName=='Health Heart'" src="../assets/health heart.png" :height="getBadgeHeight(row.status)" contain
+                    <v-img v-else-if="row.typeName=='Health Heart'" src="../assets/health-heart-small.png" :height="getBadgeHeight(row.status)" contain
                         :gradient="getGradient(row.status,row.typeColor)"
                     >
                     </v-img>
@@ -58,10 +54,7 @@
                 </v-avatar>
             </div>
         </v-card>
-        <v-spacer></v-spacer>
-        </v-col>
-        </v-row>
-
+    </v-container>
 </template>
  
 <script>
@@ -106,17 +99,17 @@ const creds = require('@/client_secret.json');
                 else{
                     if(color==="primary"){
                         const rgb=this.hexToRgb(this.$vuetify.theme.themes.light.primary)
-                        return `to top right, rgba(${rgb}, 0.9), rgba(${rgb},0.1)`
+                        return `to top right, rgba(${rgb}, 1), rgba(${rgb},0.1)`
                     }
                     else if(color==="secondary"){
                         const rgb=this.hexToRgb(this.$vuetify.theme.themes.light.secondary)
-                        return `to top right, rgba(${rgb}, 0.9), rgba(${rgb},0.1)`
+                        return `to top right, rgba(${rgb}, 1), rgba(${rgb},0.1)`
                     }
                     else if(color==="accent"){
                         const rgb=this.hexToRgb(this.$vuetify.theme.themes.light.accent)
-                        return `to top right, rgba(${rgb}, 0.9), rgba(${rgb},0.1)`
+                        return `to top right, rgba(${rgb}, 1), rgba(${rgb},0.1)`
                     }else{
-                        return 'to top right, rgba(233, 30, 99, 0.9), rgba(233, 30, 99,0.1)'
+                        return 'to top right, rgba(233, 30, 99, 1), rgba(233, 30, 99,0.1)'
                     }
                 }
 
