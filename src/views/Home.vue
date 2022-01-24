@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ma-0 pa-0">
+  <v-container class="ma-0 pa-0" >
     <challenges/>
   </v-container>
 </template>

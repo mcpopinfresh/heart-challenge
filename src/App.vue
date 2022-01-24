@@ -8,10 +8,7 @@
       app
       src="./assets/headerImage.jpg"
       dark
-      shrink-on-scroll
       prominent
-      fade-img-on-scroll
-      scroll-threshold="100"
       color="black"
     >
       <template v-slot:img="{ props }">
