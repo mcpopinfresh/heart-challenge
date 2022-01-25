@@ -14,11 +14,15 @@ export default new Vuetify({
                 primary: colors.teal.darken3, 
                 secondary: colors.deepPurple.lighten1, 
                 accent: colors.red.lighten2, 
+                success: colors.yellow.darken2,
+                info: colors.blueGrey,
             },
             dark: {
                 primary: colors.teal.darken3, 
                 secondary: colors.deepPurple.lighten1, 
                 accent: colors.red.lighten2, 
+                success: colors.amber.accent4,
+                info: colors.blueGrey,
             }
         },
     },

@@ -5,7 +5,6 @@
             :key="row.id" 
             :color="row.typeColor"
             shaped
-
             class="my-4"
             dark
         >
@@ -18,12 +17,12 @@
                     
                     <v-card-title v-if="row.status==='Complete'" style="font-size:24px">
                         <span> {{row.status}}</span>
-                        <v-icon color="yellow darken-2" x-large>mdi-star</v-icon>
+                        <v-icon color="success" x-large>mdi-star</v-icon>
                     </v-card-title>
                     <v-card-title v-else style="color:lightgray">{{row.status}}</v-card-title>
 
                     <v-card-actions>
-                        <v-btn v-if="row.status==='Incomplete'">
+                        <v-btn v-if="row.status==='Incomplete'" @click="completeClick(row.id)">
                             <v-icon>mdi-heart-half-full</v-icon>
                             <span>Mark Complete</span>
                         </v-btn>
@@ -69,7 +68,12 @@ const creds = require('@/client_secret.json');
 	export default {
 		name: 'Challenges',
 
-		props: ['sheet'],
+        props: ['completeRowID'],
+        watch: {
+            completeRowID: function(newId){
+                this.updateRow(newId)
+            }
+        },
 		data() {
 			return {
 				rows: [],
@@ -77,7 +81,16 @@ const creds = require('@/client_secret.json');
                 incompletGradient: '',
 			}
 		},
+
 		methods:{
+            async updateRow(rowId){
+                const completeRow = this.rows.filter(function (el) {
+                    return el.id == rowId 
+                });
+                completeRow[0].status = 'Complete'
+                await completeRow[0].save()
+                
+            },
 			async accessSpreadSheet() {
 				const doc = new GoogleSpreadsheet(GSheetID);
 				await doc.useServiceAccountAuth(creds);
@@ -86,7 +99,10 @@ const creds = require('@/client_secret.json');
 				const  rows = await sheet.getRows({
 					offset: 0
 				})
-				this.rows = rows;
+				//this.rows = rows;
+                this.rows = rows.sort(function(a,b){
+                    return new Date(b.addTime) - new Date(a.addTime);
+                });
 			},
             getBadgeHeight(status){
                 if(status==="Complete"){
@@ -121,6 +137,10 @@ const creds = require('@/client_secret.json');
             hexToRgb(hex) {
                 const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
                 return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '';
+            },
+            completeClick(rowId){
+                const result = {showOverlay: true, rowId: rowId}
+                this.$emit('completeClick', result)
             }
 		},
 		created() {
