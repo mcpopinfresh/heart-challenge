@@ -8,10 +8,19 @@
             class="my-4"
             dark
         >
-            <div class="d-flex flex-no-wrap justify-space-between">
+            <v-toolbar flat :color="row.typeColor">
+                <v-toolbar-title>{{row.name}}</v-toolbar-title>
+                
+                <v-spacer/>
+                <v-icon v-if="row.status==='Incomplete'" @click="controlClick(row, 'delete')">mdi-close</v-icon>
+            </v-toolbar>
+            <div class="d-flex flex-no-wrap justify-space-between ">
                 <div>
-                    <v-card-title> {{row.name}} </v-card-title>
-                    <v-card-subtitle>{{row.activity}}</v-card-subtitle>
+                    
+                    <v-card-text>
+                        <v-icon v-if="row.status==='Incomplete'" small @click="controlClick(row, 'edit')">mdi-pencil</v-icon>
+                        <span> {{row.activity}}</span>
+                    </v-card-text>
                     
                     <v-divider class="mx-4"></v-divider>
                     
@@ -22,25 +31,19 @@
                     <v-card-title v-else style="color:lightgray">{{row.status}}</v-card-title>
 
                     <v-card-actions>
-                        <v-btn v-if="row.status==='Incomplete'" @click="completeClick(row.id)">
+                        <v-btn v-if="row.status==='Incomplete'" @click="controlClick(row, 'complete')">
                             <v-icon>mdi-heart-half-full</v-icon>
                             <span>Mark Complete</span>
                         </v-btn>
                     </v-card-actions>
                 </div>
+                
                 <v-avatar
                     class="ma-3"
                     size="125"
                     width="100"
                     tile
                 >
-                    <!--
-                    <v-icon v-if="row.typeName=='Helping Heart'" size="125"> mdi-charity </v-icon>
-                    <v-icon v-else-if="row.typeName=='Holy Heart'" size="125"> mdi-heart-plus </v-icon>
-                    <v-icon v-else-if="row.typeName=='Health Heart'" size="125"> mdi-heart-pulse </v-icon>
-                    <v-icon v-else size="125"> mdi-heart-cog </v-icon>
-                    -->
-
                     <v-img v-if="row.typeName=='Helping Heart'" src="../assets/helping-heart-small.png" :height="getBadgeHeight(row.status)" contain
                         :gradient="getGradient(row.status,row.typeColor)"
                     ></v-img>
@@ -62,48 +65,23 @@
  
 <script>
 
-import { GSheetID } from '../components/global-vars.js'
-const { GoogleSpreadsheet } = require('google-spreadsheet');
-const creds = require('@/client_secret.json');
+
 	export default {
 		name: 'Challenges',
 
-        props: ['completeRowID'],
-        watch: {
-            completeRowID: function(newId){
-                this.updateRow(newId)
-            }
-        },
+        props: ['rows'],
+
 		data() {
 			return {
-				rows: [],
-				loading: true,
                 incompletGradient: '',
 			}
 		},
 
 		methods:{
-            async updateRow(rowId){
-                const completeRow = this.rows.filter(function (el) {
-                    return el.id == rowId 
-                });
-                completeRow[0].status = 'Complete'
-                await completeRow[0].save()
-                
+            controlClick(row, controlType){
+                const result = {controlType: controlType, row: row}
+                this.$emit('controlClick', result)
             },
-			async accessSpreadSheet() {
-				const doc = new GoogleSpreadsheet(GSheetID);
-				await doc.useServiceAccountAuth(creds);
-				await doc.loadInfo(); 
-				const sheet = doc.sheetsByIndex[0];
-				const  rows = await sheet.getRows({
-					offset: 0
-				})
-				//this.rows = rows;
-                this.rows = rows.sort(function(a,b){
-                    return new Date(b.addTime) - new Date(a.addTime);
-                });
-			},
             getBadgeHeight(status){
                 if(status==="Complete"){
                     return 120;
@@ -137,14 +115,7 @@ const creds = require('@/client_secret.json');
             hexToRgb(hex) {
                 const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
                 return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '';
-            },
-            completeClick(rowId){
-                const result = {showOverlay: true, rowId: rowId}
-                this.$emit('completeClick', result)
             }
-		},
-		created() {
-			this.accessSpreadSheet();
 		}
 		
 	}

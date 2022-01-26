@@ -61,7 +61,11 @@
             <v-btn :disabled="disableBtn" @click="addChallenge()" color="accent">
                 <v-icon>mdi-heart-plus</v-icon>
                 <span>Add Challenge</span>
-                
+            </v-btn>
+            <v-spacer/>
+            <v-btn  color="primary" router :to="{name: 'Home'}">
+                <v-icon>mdi-home-heart</v-icon>
+                <span>Home</span>
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -141,6 +145,7 @@
                     typeColor: this.type.color,
                     status:'Incomplete',
                     addTime: new Date(),
+                    updateTime: new Date(),
                     id: this.email + '|' + Date.now().toString()
 				}
 				const doc = new GoogleSpreadsheet(GSheetID);
