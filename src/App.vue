@@ -1,9 +1,7 @@
 <template>
   <v-app 
     dark
-    style="background: teal-lighten-4"
   >
-    
     <v-app-bar
       app
       src="./assets/headerImage-med.jpg"
@@ -21,7 +19,7 @@
       </template>
 
       <!--<v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>-->
-      <v-btn @click="drawer = true" icon><v-icon x-large>$menu</v-icon></v-btn>
+     <!-- <v-btn @click="drawer = true" icon><v-icon x-large>$menu</v-icon></v-btn>-->
 
     </v-app-bar>
 
@@ -32,6 +30,7 @@
       >
         <side-nav-list/>
       </v-navigation-drawer>
+    
 
     <v-main>
       <router-view/>

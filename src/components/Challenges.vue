@@ -1,5 +1,9 @@
 <template>
     <v-container>
+        <v-fab-transition
+            class="ma-0 pa-0"
+            group
+        >
         <v-card 
             v-for="row in rows"
             :key="row.id" 
@@ -60,6 +64,7 @@
                 </v-avatar>
             </div>
         </v-card>
+        </v-fab-transition>
     </v-container>
 </template>
  
