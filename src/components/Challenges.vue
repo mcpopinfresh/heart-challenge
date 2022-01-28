@@ -101,15 +101,15 @@
                 }
                 else{
                     if(color==="primary"){
-                        const rgb=this.hexToRgb(this.$vuetify.theme.themes.light.primary)
+                        const rgb=this.hexToRgb(this.$vuetify.theme.themes.dark.primary)
                         return `to top right, rgba(${rgb}, 1), rgba(${rgb},0.1)`
                     }
                     else if(color==="secondary"){
-                        const rgb=this.hexToRgb(this.$vuetify.theme.themes.light.secondary)
+                        const rgb=this.hexToRgb(this.$vuetify.theme.themes.dark.secondary)
                         return `to top right, rgba(${rgb}, 1), rgba(${rgb},0.1)`
                     }
                     else if(color==="accent"){
-                        const rgb=this.hexToRgb(this.$vuetify.theme.themes.light.accent)
+                        const rgb=this.hexToRgb(this.$vuetify.theme.themes.dark.accent)
                         return `to top right, rgba(${rgb}, 1), rgba(${rgb},0.1)`
                     }else{
                         return 'to top right, rgba(233, 30, 99, 1), rgba(233, 30, 99,0.1)'

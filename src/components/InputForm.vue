@@ -11,20 +11,8 @@
                 v-model="validForm"
                 ref="form"
                 >
-                  <v-text-field 
-                      v-if="this.clickedControl!='add'"
-                      ref="email"
-                      v-model="email"
-                      :rules="[rules.required, rules.email, rules.emailMatch]"
-                      label="E-Mail" 
-                      required
-                      outlined
-                      clearable
-                      prepend-icon="mdi-folder-heart"
-                      dense
-                  />
-                  <v-text-field 
-                      v-else
+                    <v-text-field 
+                      v-if="(this.clickedControl==='add')"
                       ref="email"
                       v-model="email"
                       :rules="[rules.required, rules.email]"
@@ -36,7 +24,31 @@
                       dense
                   />
                   <v-text-field 
-                    v-show="clickedControl==='edit' || clickedControl==='add'"
+                      v-else-if="(this.clickedControl==='filter')"
+                      ref="email"
+                      v-model="email"
+                      :rules="[rules.required, rules.email, rules.emailInList]"
+                      label="E-Mail" 
+                      required
+                      outlined
+                      clearable
+                      prepend-icon="mdi-folder-heart"
+                      dense
+                  />
+                  <v-text-field 
+                      v-else
+                      ref="email"
+                      v-model="email"
+                      :rules="[rules.required, rules.email, rules.emailMatch]"
+                      label="E-Mail" 
+                      required
+                      outlined
+                      clearable
+                      prepend-icon="mdi-folder-heart"
+                      dense
+                  />
+                  <v-text-field 
+                    v-if="clickedControl==='edit' || clickedControl==='add'"
                     ref="name"
                     label="Name" 
                     v-model="name"
@@ -48,7 +60,7 @@
                     dense
                   />
                   <v-select
-                    v-show="clickedControl==='edit' || clickedControl==='add'"
+                    v-if="clickedControl==='edit' || clickedControl==='add'"
                     ref="type"
                     :items="types"
                     v-model="type"
@@ -62,7 +74,7 @@
                     dense
                   ></v-select>
                   <v-textarea
-                    v-show="clickedControl==='edit' || clickedControl==='add'"
+                    v-if="clickedControl==='edit' || clickedControl==='add'"
                     ref="activity"
                     label="Challenge Details" 
                     v-model="activity"
@@ -94,6 +106,10 @@
                   <v-icon>mdi-heart-plus</v-icon>
                   <span> Add Challenge</span>
               </v-btn>
+              <v-btn v-else-if="clickedControl==='filter'" @click="submitForm(clickedControl)" color="primary">
+                  <v-icon>mdi-account-heart</v-icon>
+                  <span> Filter My Challenges</span>
+              </v-btn>
               <v-spacer></v-spacer>
               <v-btn @click="cancelForm()" color="info" class="ml-4">
                   <v-icon>mdi-heart-off-outline</v-icon>
@@ -114,6 +130,7 @@ export default {
         nameInput: null,
         typeInput: null,
         activityInput: null,
+        emailList: null,
     },
 
     data() {
@@ -137,16 +154,23 @@ export default {
                 emailMatch: value =>{
                     if(!value) return true
                     return value.toLowerCase() === this.clickedControlEmail.toLowerCase() || 'E-Mail does not match the stored e-mail for this challenge'
+                },
+                emailInList: value =>{
+                    if(!value) return true
+                    return this.emailList.includes(value.toLowerCase()) || 'No Challenges found for that e-mail' //value.toLowerCase() === this.clickedControlEmail.toLowerCase() || 'E-Mail does not match the stored e-mail for this challenge'
                 }
             },
         }
+    },
+
+    computed: {
+        
     },
 
     methods:{
         submitForm(clickedControl){
             this.$refs.form.validate()
             if(!this.validForm) return;
-
             const result = {formType: clickedControl, email: this.email, name: this.name, type: this.type, activity: this.activity}
             this.$emit('submitForm',result)
         },
@@ -156,12 +180,14 @@ export default {
     },
 
     mounted() {
-      if (localStorage.email) {
-        this.email = localStorage.email;
-      }
-      if (localStorage.name) {
-        this.name = localStorage.name;
-      }
+        if (localStorage.email) {
+            this.email = localStorage.email;
+        }
+        if (localStorage.name) {
+            if(this.clickedControl==='add'){
+            this.name = localStorage.name;
+            }
+        }
     }
 }
 </script>

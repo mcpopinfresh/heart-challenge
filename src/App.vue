@@ -17,20 +17,7 @@
           contain
         ></v-img>
       </template>
-
-      <!--<v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>-->
-     <!-- <v-btn @click="drawer = true" icon><v-icon x-large>$menu</v-icon></v-btn>-->
-
     </v-app-bar>
-
-      <v-navigation-drawer
-        app
-        v-model="drawer"
-        temporary
-      >
-        <side-nav-list/>
-      </v-navigation-drawer>
-    
 
     <v-main>
       <router-view/>
@@ -39,17 +26,9 @@
 </template>
 
 <script>
-import SideNavList from "./components/SideNavList.vue"
 
 export default {
   name: 'App',
   
-  components:{
-    SideNavList,
-  },
-
-  data: () => ({
-    drawer: false,
-  }),
 };
 </script>

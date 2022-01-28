@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import HeartMap from '../views/HeartMap.vue'
 
 Vue.use(VueRouter)
 
@@ -13,13 +12,6 @@ const routes = [
     icon: 'mdi-home-heart',
     visible: true
   },
-  {
-    path: '/heartMap',
-    name: 'Heart Map',
-    component: HeartMap,
-    icon: 'mdi-earth',
-    visible: false
-  }
 ]
 
 const router = new VueRouter({
